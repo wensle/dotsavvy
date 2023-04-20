@@ -1,0 +1,24 @@
+# Pywikibot user configuration file
+user-config.py
+
+# Pywikibot user password file
+user-password.py
+
+# Pywikibot log files
+*.log
+
+# Pywikibot cache
+__pycache__/
+apicache-py3/
+
+# Pywikibot session data
+*.pwb
+
+# Pywikibot throttle control
+*.ctrl
+
+# Pywikibot login session data
+*.lwp
+
+# Python virtual environment
+venv/
