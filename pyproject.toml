@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "dotsavvy"
+version = "0.1.0"
+description = "The DOTsavvy research tool offers ICT students insights into the crucial Development Oriented Triangulation (DOT) framework in the ICT field."
+authors = []
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.9, <3.11"
+nicegui = "^1.2.7"
+pywikibot = "^8.1.0"
+
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.22.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
