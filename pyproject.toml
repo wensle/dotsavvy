@@ -7,8 +7,11 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.9, <3.11"
-nicegui = "^1.2.7"
 pywikibot = "^8.1.0"
+langchain = "^0.0.165"
+pinecone-client = "^2.2.1"
+jupyter = "^1.0.0"
+rich = "^13.3.5"
 
 
 [tool.poetry.group.dev.dependencies]

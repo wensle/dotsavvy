@@ -8,3 +8,6 @@ DOTSAVVY_ROOT_DIR = Path(
 
 # Define the data directory
 DOTSAVVY_DATA_DIR = DOTSAVVY_ROOT_DIR / "data"
+
+# Define the data directory for the ICT Research Methods wiki
+ICT_RESEARCH_METHODS_DATA_DIR = DOTSAVVY_DATA_DIR / "ictresearchmethods"
