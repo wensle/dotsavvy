@@ -13,6 +13,7 @@ pinecone-client = "^2.2.1"
 jupyter = "^1.0.0"
 rich = "^13.3.5"
 tiktoken = "^0.4.0"
+tenacity = "^8.2.2"
 
 
 [tool.poetry.group.dev.dependencies]
