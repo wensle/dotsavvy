@@ -22,3 +22,6 @@ apicache-py3/
 
 # Python virtual environment
 venv/
+
+# Environment variables
+.env
