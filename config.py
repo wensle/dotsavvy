@@ -1,13 +1,15 @@
 import os
 from pathlib import Path
 
-# Get the project root directory
 DOTSAVVY_ROOT_DIR = Path(
     os.environ.get("ROOT_DIR", os.path.dirname(os.path.abspath(__file__)))
 )
+"""The root directory of the dotsavvy package."""
 
-# Define the data directory
-DOTSAVVY_DATA_DIR = DOTSAVVY_ROOT_DIR / "data"
+DOTSAVVY_DATA_DIR: Path = DOTSAVVY_ROOT_DIR / "data"
+"""The directory for the data used by the dotsavvy package.""" ""
 
-# Define the data directory for the ICT Research Methods wiki
-ICT_RESEARCH_METHODS_DATA_DIR = DOTSAVVY_DATA_DIR / "ictresearchmethods"
+# Define the data directory for the
+ICT_RESEARCH_METHODS_BASE_DIR: Path = DOTSAVVY_DATA_DIR / "ictresearchmethods"
+"""The base directory for the ICT Research Methods data, also including scripts and
+notebooks."""
