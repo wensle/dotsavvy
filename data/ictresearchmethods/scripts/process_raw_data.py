@@ -1,6 +1,9 @@
-"""Process raw data for ICT Research Methods Wiki to upsert into Pinecone."""
+"""Process raw data for ICT Research Methods Wiki to separate collections of texts and
+metadata objects."""
 import json
 from pathlib import Path
+from typing import Generator
+from uuid import uuid4
 
 from config import ICT_RESEARCH_METHODS_BASE_DIR
 
@@ -8,39 +11,60 @@ from dotsavvy.datastore.pinecone.types import METADATA
 
 
 # Constants
-_INPUT_DATA_DIR: Path = ICT_RESEARCH_METHODS_BASE_DIR / "raw_data"
-_OUTPUT_DATA_DIR: Path = ICT_RESEARCH_METHODS_BASE_DIR / "processed_data"
-_OUTPUT_JSONL_FILE: Path = _OUTPUT_DATA_DIR / "processed_data.jsonl"
+_INPUT_DIR: Path = ICT_RESEARCH_METHODS_BASE_DIR / "raw_data"
+_OUTPUT_DIR: Path = ICT_RESEARCH_METHODS_BASE_DIR / "processed_data"
+_OUTPUT_FILE_PATH: Path = _OUTPUT_DIR / "processed_data.json"
 
 
-def create_processed_data_dir() -> None:
-    if not _OUTPUT_DATA_DIR.exists():
-        _OUTPUT_DATA_DIR.mkdir(parents=True, exist_ok=True)
-
-
-def process_raw_data_file(raw_data: dict[str]) -> dict[str, str | METADATA]:
-    text: str = raw_data["title"] + "\n\n" + raw_data["content"]
+def process_file(file: dict[str]) -> tuple[str, METADATA]:
+    text: str = file["title"] + "\n\n" + file["content"]
+    text = (
+        text.replace("‘", "'")
+        .replace("’", "'")
+        .replace("“", '"')
+        .replace("”", '"')
+        .replace("–", "-")
+        .replace("…", "...")
+        .replace("—", "-")
+        .replace("\n ", "\n")
+    )
     metadata: METADATA = {
-        "title": raw_data["title"],
-        "categories": raw_data["categories"],
-        "url": raw_data["full_url"],
-        "backlinks": raw_data["backlinks"],
+        "title": file["title"],
+        "categories": file["categories"],
+        "url": file["full_url"],
+        "backlinks": file["backlinks"],
+        "document_id": str(uuid4()),
     }
-    return {"text": text, "metadata": metadata}
+    return text, metadata
 
 
-def main() -> None:
-    create_processed_data_dir()
-    output_data = []
-    for raw_data_file in _INPUT_DATA_DIR.glob("*.json"):
+def process_dir_generator(
+    input_dir: Path,
+) -> Generator[tuple[str, METADATA], None, None]:
+    for raw_data_file in input_dir.glob("*.json"):
         with open(raw_data_file, "r", encoding="utf-8") as f:
             raw_data = json.load(f)
-        processed_data = process_raw_data_file(raw_data)
-        output_data.append(processed_data)
-    with open(_OUTPUT_JSONL_FILE, "w", encoding="utf-8") as f:
-        for data in output_data:
-            json.dump(data, f, ensure_ascii=False)
-            f.write("\n")
+            processed_file = process_file(raw_data)
+            yield processed_file
+
+
+def main(
+    input_dir: Path | None = None,
+    output_dir: Path | None = None,
+    output_file_path: Path | None = None,
+) -> None:
+    input_dir = input_dir or _INPUT_DIR
+    if not input_dir.exists():
+        raise FileNotFoundError(f"Path to the directory {input_dir} not found.")
+    if not input_dir.is_dir():
+        raise NotADirectoryError(f"Input directory {input_dir} is not a directory.")
+    texts, metadatas = zip(*process_dir_generator(input_dir))
+    output_dir = output_dir or _OUTPUT_DIR
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    output_file_path = output_file_path or _OUTPUT_FILE_PATH
+    with open(output_file_path, "w", encoding="utf-8") as f:
+        json.dump({"texts": texts, "metadatas": metadatas}, f, ensure_ascii=False)
 
 
 if __name__ == "__main__":
