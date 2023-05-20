@@ -16,7 +16,7 @@ def create_index() -> None:
     api_key: str = get_env_variable("DOTSAVVY_PINECONE_API_KEY")
     environment: str = get_env_variable("DOTSAVVY_PINECONE_ENVIRONMENT")
     pinecone.init(api_key=api_key, environment=environment)
-    index: str = get_env_variable("DOTSAVVY_PINECONE_INDEX")
+    index: str = get_env_variable("DOTSAVVY_PINECONE_INDEX_NAME")
     pinecone.create_index(
         name=index,
         dimension=_EMBEDDING_DIMENSION,
