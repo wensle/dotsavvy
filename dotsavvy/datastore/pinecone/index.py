@@ -27,15 +27,15 @@ def init_pinecone() -> None:
     _pinecone_initialized = True
 
 
-def get_GRPC_index() -> GRPCIndex:
+def get_GRPC_index(index_name: str | None = None) -> GRPCIndex:
+    index_name = index_name or get_env_variable("DOTSAVVY_PINECONE_INDEX_NAME")
     init_pinecone()
-    index_name: str = get_env_variable("DOTSAVVY_PINECONE_INDEX_NAME")
     return pinecone.GRPCIndex(index_name)
 
 
-def get_REST_index() -> Index:
+def get_REST_index(index_name: str | None = None) -> Index:
+    index_name = index_name or get_env_variable("DOTSAVVY_PINECONE_INDEX_NAME")
     init_pinecone()
-    index_name: str = get_env_variable("DOTSAVVY_PINECONE_INDEX_NAME")
     return pinecone.Index(index_name)
 
 
