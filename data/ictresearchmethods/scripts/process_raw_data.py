@@ -33,6 +33,7 @@ def process_file(file: dict[str]) -> tuple[str, METADATA]:
         "categories": file["categories"],
         "url": file["full_url"],
         "backlinks": file["backlinks"],
+        "text": text,
         "document_id": str(uuid4()),
     }
     return text, metadata
