@@ -1,8 +1,8 @@
-from langchain.chat_models import ChatOpenAI
-from langchain.chains.conversation.memory import ConversationBufferWindowMemory
 from langchain.chains import RetrievalQA
-from dotsavvy.services.vectorstore import create_pinecone_vectorstore
+from langchain.chains.conversation.memory import ConversationBufferWindowMemory
+from langchain.chat_models import ChatOpenAI
 
+from dotsavvy.services.vectorstore import create_pinecone_vectorstore
 from dotsavvy.utils.env_variables import get_env_variable
 
 
