@@ -9,7 +9,7 @@ readme = "README.md"
 python = ">=3.9, <3.11"
 pywikibot = "^8.1.0"
 langchain = "^0.0.165"
-pinecone-client = "^2.2.1"
+pinecone-client = {extras = ["grpc"], version = "^2.2.1"}
 jupyter = "^1.0.0"
 rich = "^13.3.5"
 tiktoken = "^0.4.0"
