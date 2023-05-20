@@ -1,5 +1,6 @@
 import pinecone
 from pinecone import GRPCIndex, Index
+from dotsavvy.datastore.pinecone.types import METADATA
 
 from dotsavvy.utils.env_variables import get_env_variable
 
@@ -11,6 +12,7 @@ https://platform.openai.com/docs/guides/embeddings/which-distance-function-shoul
 _EMBEDDING_DIMENSION = 1536
 """OpenAI's text-embedding-ada-002 model has an embedding dimension of 1536, see
 https://platform.openai.com/docs/guides/embeddings/second-generation-models"""
+_METADATA_CONFIG: dict[str, list[str]] = {"indexed": ["categories", "backlinks"]}
 
 # Global flag to indicate whether Pinecone has been initialized
 _pinecone_initialized = False
@@ -45,6 +47,7 @@ def create_index() -> None:
         name=index_name,
         dimension=_EMBEDDING_DIMENSION,
         metric=_DISTANCE_METRIC,
+        metadata_config=_METADATA_CONFIG,
     )
 
 
