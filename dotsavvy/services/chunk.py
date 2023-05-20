@@ -3,7 +3,7 @@ from typing import AbstractSet, Collection, Literal
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 # Constants
-_CHUNK_SIZE = 200
+_CHUNK_SIZE = 400
 _CHUNK_OVERLAP = 20
 _ENCODING_NAME = "cl100k_base"
 _MODEL_NAME = "gpt-3.5-turbo"
