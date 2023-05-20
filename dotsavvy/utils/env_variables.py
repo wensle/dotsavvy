@@ -3,6 +3,8 @@ from typing import Optional
 
 from dotenv import load_dotenv
 
+from config import DOT_ENV_FILE_PATH
+
 
 def get_env_variable(key: str) -> str:
     """Get an environment variable.
@@ -16,7 +18,9 @@ def get_env_variable(key: str) -> str:
     Raises:
         ValueError: If the environment variable is not found.
     """
-    load_dotenv()
+    result: bool = load_dotenv(DOT_ENV_FILE_PATH)
+    if result is False:
+        raise ValueError("Could not load .env file")
     value: Optional[str] = os.environ.get(key)
     if not value:
         raise ValueError(
