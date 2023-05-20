@@ -21,7 +21,7 @@ def get_env_variable(key: str) -> str:
     if not value:
         raise ValueError(
             f"Environment variable {key} not found. Please set it using "
-            f"`export {key}=<value>` in your terminal or set the variable in your "
-            f".env file e.g. {key}=<value>."
+            f"`export {key}='your value'` in your terminal or set the variable in "
+            f"your .env file e.g. {key}='your value'."
         )
     return value
