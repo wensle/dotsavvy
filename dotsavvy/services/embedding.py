@@ -16,3 +16,10 @@ def embed_document(text: str) -> List[List[float]]:
             f"Expected exactly one embedding, got more. Text: {text}, embeddings: {res}"
         )
     return res[0]
+
+
+def embed_query(text: str):
+    open_api_key: str = get_env_variable("DOTSAVVY_OPENAI_API_KEY")
+    embed = OpenAIEmbeddings(model=_MODEL_NAME, openai_api_key=open_api_key)
+    res: List[float] = embed.embed_query(text)
+    return res
