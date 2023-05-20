@@ -1,6 +1,5 @@
 import pinecone
 from pinecone import GRPCIndex, Index
-from dotsavvy.datastore.pinecone.types import METADATA
 
 from dotsavvy.utils.env_variables import get_env_variable
 
