@@ -40,9 +40,9 @@ def get_REST_index() -> Index:
     return pinecone.Index(index_name)
 
 
-def create_index() -> None:
+def create_index(index_name: str | None = None) -> None:
+    index_name = index_name or get_env_variable("DOTSAVVY_PINECONE_INDEX_NAME")
     init_pinecone()
-    index_name: str = get_env_variable("DOTSAVVY_PINECONE_INDEX_NAME")
     pinecone.create_index(
         name=index_name,
         dimension=_EMBEDDING_DIMENSION,
@@ -51,7 +51,7 @@ def create_index() -> None:
     )
 
 
-def delete_index() -> None:
+def delete_index(index_name: str | None = None) -> None:
+    index_name = index_name or get_env_variable("DOTSAVVY_PINECONE_INDEX_NAME")
     init_pinecone()
-    index_name: str = get_env_variable("DOTSAVVY_PINECONE_INDEX_NAME")
     pinecone.delete_index(name=index_name)
