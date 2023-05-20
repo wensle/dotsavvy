@@ -1,5 +1,4 @@
 import pinecone
-from dotenv import load_dotenv
 
 from dotsavvy.utils.env_variables import get_env_variable
 
@@ -11,8 +10,6 @@ https://platform.openai.com/docs/guides/embeddings/which-distance-function-shoul
 _EMBEDDING_DIMENSION = 1536
 """OpenAI's text-embedding-ada-002 model has an embedding dimension of 1536, see
 https://platform.openai.com/docs/guides/embeddings/second-generation-models"""
-
-load_dotenv()
 
 
 def create_index() -> None:
