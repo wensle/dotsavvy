@@ -1,7 +1,7 @@
-from pathlib import Path
 import pickle
+from pathlib import Path
 
-from config import ICT_RESEARCH_METHODS_BASE_DIR, PDFS_BASE_DIR
+from config import PDFS_BASE_DIR
 from dotsavvy.datastore.pinecone.index import get_GRPC_index
 
 _UPSERT_BATCH_SIZE = 100
