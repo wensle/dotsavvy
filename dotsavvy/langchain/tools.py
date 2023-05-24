@@ -13,11 +13,13 @@ from dotsavvy.utils.env_variables import get_env_variable
 
 
 class DOTFrameworkKnowledgeBase(BaseTool):
-    name = "Search the DOT framework Knowledge base"
+    name = "Search the DOT Framework Knowledge base"
     description = (
         "Useful for when you need to answer knowledge questions about the DOT "
-        "framework, provide tips on how to use the DOT Framework, or provide examples "
-        "of how others have used the DOT Framework."
+        "Contains general information about the DOT Framework, research done on the "
+        "DOT Framework, and graduation reports of students who have used the DOT "
+        "Framework. You will not find information about how to use the DOT Framework "
+        "for a specific use case. "
     )
 
     def _run(
@@ -31,9 +33,17 @@ class DOTFrameworkKnowledgeBase(BaseTool):
         llm = ChatOpenAI(openai_api_key=openai_api_key, model_name=llm_name)
         vectorstore = create_pinecone_vectorstore()
         qa_with_sources = RetrievalQAWithSourcesChain.from_chain_type(
-            llm=llm, chain_type="stuff", retriever=vectorstore.as_retriever()
+            llm=llm,
+            chain_type="map_reduce",
+            retriever=vectorstore.as_retriever(),
+            reduce_k_below_max_tokens=True,
+            chain_type_kwargs={"verbose": True},
         )
-        return qa_with_sources(question)
+        result = qa_with_sources(question)
+        return (
+            f"ANSWER:{result['answer']}\nSOURCES:\n{result['sources']}"
+            # f"\n{result['intermediate_steps']}"
+        )
 
     async def _arun(
         self,

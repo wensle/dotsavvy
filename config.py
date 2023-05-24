@@ -13,5 +13,8 @@ ICT_RESEARCH_METHODS_BASE_DIR: Path = DOTSAVVY_DATA_DIR / "ictresearchmethods"
 """The base directory for the ICT Research Methods data, also including scripts and
 notebooks."""
 
+PDFS_BASE_DIR: Path = DOTSAVVY_DATA_DIR / "pdfs"
+"""The base directory for the PDF data, also including scripts and notebooks."""
+
 DOT_ENV_FILE_PATH: Path = DOTSAVVY_ROOT_DIR / "dotsavvy" / ".env"
 """The path to the .env file."""
