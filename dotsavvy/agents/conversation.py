@@ -8,7 +8,7 @@ from dotsavvy.utils.env_variables import get_env_variable
 
 class ConversationAgent:
     def __init__(self) -> None:
-        openai_api_key: str = get_env_variable("DOTSAVVY_OPENAI_API_KEY")
+        openai_api_key: str = get_env_variable("OPENAI_API_KEY")
         llm_name: str = get_env_variable("DOTSAVVY_LLM_NAME")
         self.chat_model = ChatOpenAI(openai_api_key=openai_api_key, model_name=llm_name)
         self.memory = ConversationBufferWindowMemory(
