@@ -6,7 +6,7 @@ from uuid import uuid4
 
 from langchain.document_loaders import PyPDFLoader
 
-from config import ICT_RESEARCH_METHODS_BASE_DIR, PDFS_BASE_DIR
+from config import PDFS_BASE_DIR
 from dotsavvy.datastore.pinecone.types import METADATA
 from dotsavvy.services.chunk import create_recursive_tiktoken_splitter
 from dotsavvy.services.embedding import embed_documents

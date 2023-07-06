@@ -52,3 +52,27 @@ class DOTFrameworkKnowledgeBase(BaseTool):
     ) -> str:
         """Use the tool asynchronously."""
         raise NotImplementedError("Search ictresearchmethods.nl")
+
+
+class DOTFrameworkScientificPapersQA(BaseTool):
+    pass
+
+
+class DOTFrameworkGraduationReportsQA(BaseTool):
+    pass
+
+
+class DOTFrameworkGraduationReportAnalyzer(BaseTool):
+    name = (
+        "Analyze a student's graduation report as part of a ICT undergraduate program"
+    )
+    description = (
+        "Useful for when you need to analyze a student's graduation report as part of "
+        "a ICT undergraduate program. "
+    )
+
+    def _run(self):
+        return
+
+    async def _arun(self):
+        return
